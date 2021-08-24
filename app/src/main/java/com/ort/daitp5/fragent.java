@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.fragment.app.Fragment;
+
 import com.ort.daitp5.R;
 
 import static android.app.PendingIntent.getActivity;
 
-public class fragent {
+public class fragent  extends Fragment implements View.OnClickListener {
     EditText ingresocudad;
     Button miboton;
     public View onCreateView(LayoutInflater inflador, ViewGroup migrupo, Bundle datosrecibidos){
@@ -29,9 +31,6 @@ public class fragent {
         activityprincipal miactivity;
         miactivity=(activityprincipal) getActivity ();
         miactivity.recibirdatos (ciudad);
-       /* activityprincipal miactivity;
-        miactivity=(actividadprincipal)getActivity ();
-        miactivity.recibirdatos (ciudad);
-*/
+
     }
 }
