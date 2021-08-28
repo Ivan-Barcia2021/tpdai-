@@ -38,9 +38,9 @@ private fragentmostrar mostrar;
         tareaAsincronica mitarea= new tareaAsincronica ();
         mitarea.execute ();
     }
-private  class  tareaAsincronica extends AsyncTask<Void, Void, Void>{
+    private  class  tareaAsincronica extends AsyncTask<Void, Void, Void>{
         @Override
-    protected Void doInBackground(Void...voids){
+        protected Void doInBackground(Void...voids){
             try {
                 URL miruta= new URL ("api.openweathermap.org/data/2.5/weather?q={ciudadingresada_}&appid={77b12ce172b1421a452d89a59564754c}");
                 HttpURLConnection miconexion =(HttpURLConnection) miruta.openConnection ();
@@ -51,12 +51,47 @@ private  class  tareaAsincronica extends AsyncTask<Void, Void, Void>{
                 }
 
             }
-           catch (Exception error){
+            catch (Exception error){
 
-           }
+            }
+
             return  null;
         }
-}
+
+    }
+    public  void  procesarJson(InputStreamReader lector){
+
+            try {
+                URL miruta= new URL ("api.openweathermap.org/data/2.5/weather?q={ciudadingresada_}&appid={77b12ce172b1421a452d89a59564754c}");
+                HttpURLConnection miconexion =(HttpURLConnection) miruta.openConnection ();
+                if(miconexion.getResponseCode ()==200){
+                    InputStream cuerporespuesta= miconexion.getInputStream ();
+                    InputStreamReader l= new InputStreamReader (cuerporespuesta, "UTF-8");
+                    procesarJson(l);
+                }
+
+            }
+            catch (Exception error){
+
+            }
+
+    }
+    public  void  procesar(InputStreamReader Jsoncrudo){
+        JsonParser parseador= new JsonParser();
+        JsonObject objJsoncrudo= new JsonObject();
+        objJsoncrudo=parseador.parse(Jsoncrudo).getAsJsonObject();
+        int cantidad;
+        cantidad=objJsoncrudo.get("c").getAsInt();
+        JsonArray ciudades=objJsoncrudo.get("ciudades").getAsJsonArray();
+        for(int i=0; i<ciudades.size(); i++){
+            JsonObject unaciudad;
+            unaciudad=cantidad.get(i).getAsJsonObject();
+            String idciudad;
+            idciudad=unaciudad.get (String.valueOf (i)).getAsString ();
+
+        }
+    }
+
 
     public void recibirdatos(String ciudad){
         ciudadingresada_=ciudad;
